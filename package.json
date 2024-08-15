@@ -1,0 +1,22 @@
+{
+    "name": "movie-booking-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "dotenv -- nodemon index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv-cli": "^7.4.2",
+        "express": "^4.19.2",
+        "mongoose": "^8.5.3",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.4"
+    }
+}
