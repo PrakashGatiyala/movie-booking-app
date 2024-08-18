@@ -3,12 +3,15 @@ const router = express.Router()
 const {
   handleUserSignup,
   handleUserSignin,
+  handleMe,
   handleUserLogout,
 } = require('../controllers/auth.controller')
 
-router.post('/signup', handleUserSignup)
+router.post('/sign-up', handleUserSignup)
 
-router.post('/signin', handleUserSignin)
+router.post('/sign-in', handleUserSignin)
+
+router.get('/me', handleMe)
 
 router.get('/logout', handleUserLogout)
 

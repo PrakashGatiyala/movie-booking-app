@@ -1,5 +1,5 @@
-const { createUser, signIn } = require('../services/user.service')
-const { CustomError } = require('../errorhandler/custom.errorhandler')
+const AuthService = require('../services/auth.service')
+const AppError = require('../errors/app.error')
 const {
   createUserValidator,
   signInValidator,
@@ -10,23 +10,25 @@ const handleUserSignup = async (req, res) => {
   if (!validationResult.success) {
     return res.status(400).json({ error: validationResult.error })
   }
-  const { firstname, lastname, email, password, role } = validationResult.data
+  const { firstname, lastname, email, password } = validationResult.data
 
   try {
-    const user = await createUser({
+    const token = await AuthService.signupWithEmailAndPassword({
       firstname,
       lastname,
       email,
       password,
-      role,
     })
 
-    res.status(201).json({ data: { id: user._id, token: user.token } })
+    return res.status(201).json({ status: 'success', data: { token } })
   } catch (error) {
-    if (error instanceof CustomError) {
+    if (error instanceof AppError) {
       return res.status(error.code).json({ error: error.message })
     }
-    res.status(500).json({ error: 'Internal server error' })
+    console.log(`Error`, error)
+    return res
+      .status(500)
+      .json({ status: 'error', error: 'Internal server error' })
   }
 }
 
@@ -38,22 +40,38 @@ const handleUserSignin = async (req, res) => {
   const { email, password } = validationResult.data
 
   try {
-    const user = await signIn({ email, password })
+    const token = await AuthService.signinWithEmailAndPassword({
+      email,
+      password,
+    })
 
-    res.status(200).json({
-      message: `Signin Successful for ${user.firstname}`,
-      token: user.token,
+    return res.status(200).json({
+      message: `Signin Successful`,
+      token: token,
     })
   } catch (error) {
-    if (error instanceof CustomError) {
+    if (error instanceof AppError) {
       return res.status(error.code).json({ error: error.message })
     }
-    res.status(500).json({ error: 'Internal server error' })
+    console.log(`Error`, error)
+    return res.status(500).json({ error: 'Internal server error' })
   }
+}
+
+const handleMe = (req, res) => {
+  if (!req.user) {
+    return res.json({ isLoggedIn: false })
+  }
+  return res.json({ isLoggedIn: true, data: { user: req.user } })
 }
 
 const handleUserLogout = (req, res) => {
   res.send('Logout')
 }
 
-module.exports = { handleUserSignup, handleUserSignin, handleUserLogout }
+module.exports = {
+  handleUserSignup,
+  handleUserSignin,
+  handleMe,
+  handleUserLogout,
+}
