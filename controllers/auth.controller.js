@@ -45,10 +45,7 @@ const handleUserSignin = async (req, res) => {
       password,
     })
 
-    return res.status(200).json({
-      message: `Signin Successful`,
-      token: token,
-    })
+    return res.status(200).json({ status: 'success', data: { token } })
   } catch (error) {
     if (error instanceof AppError) {
       return res.status(error.code).json({ error: error.message })
