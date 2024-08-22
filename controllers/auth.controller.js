@@ -6,7 +6,7 @@ const {
 } = require('../lib/validators/user.validator')
 
 const handleUserSignup = async (req, res) => {
-  const validationResult = createUserValidator.safeParse(req.body)
+  const validationResult = await createUserValidator.safeParseAsync(req.body)
   if (!validationResult.success) {
     return res.status(400).json({ error: validationResult.error })
   }
@@ -33,7 +33,7 @@ const handleUserSignup = async (req, res) => {
 }
 
 const handleUserSignin = async (req, res) => {
-  const validationResult = signInValidator.safeParse(req.body)
+  const validationResult = await signInValidator.safeParseAsync(req.body)
   if (!validationResult.success) {
     return res.status(400).json({ error: validationResult.error })
   }
