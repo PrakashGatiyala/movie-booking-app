@@ -12,4 +12,32 @@ const authenticationMiddleware = (req, res, next) => {
   next()
 }
 
-module.exports = { authenticationMiddleware }
+/**
+ * @function restrictToRole
+ * @param { 'admin' | 'user'} role
+ */
+const restrictToRole = (role) => {
+  const accessLevelMapping = {
+    admin: 0,
+    user: 9,
+  }
+  return (req, res, next) => {
+    // Check if the user is authenticated
+    if (!req.user) {
+      return res.status(403).json({
+        error: 'You need to be authenticated to access this resource',
+      })
+    }
+    const userRole = req.user.role
+    const userAccessLevel = accessLevelMapping[userRole]
+    const requiredAccessLevel = accessLevelMapping[role]
+    if (userAccessLevel > requiredAccessLevel) {
+      return res.status(403).json({
+        error: 'Access Denied',
+      })
+    }
+    next()
+  }
+}
+
+module.exports = { authenticationMiddleware, restrictToRole }
