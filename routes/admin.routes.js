@@ -2,6 +2,7 @@ const express = require('express')
 const theatreController = require('../controllers/theatre.controller')
 const movieController = require('../controllers/movie.controller')
 const theatreHallController = require('../controllers/theatre-hall.controller')
+const theatreHallMovieController = require('../controllers/theatre-hall-movie.controller')
 const { restrictToRole } = require('../middlewares/auth.middleware')
 
 const router = express.Router()
@@ -26,14 +27,13 @@ router.patch('/movies/:id', movieController.updateMovie)
 router.delete('/movies/:id', movieController.deleteMovie)
 
 // Theatre-hall-movie
-
-// router.get(
-//   '/theatres/:id/halls/:hallId/movies',
-//   theatreHallController.getAllMoviesInHall
-// )
-// router.post(
-//   '/theatres/:id/halls/:hallId/movies',
-//   theatreHallController.addMovieToHall
-// )
+router.get(
+  '/theatre-hall/:id/movies/:movieId',
+  theatreHallMovieController.getMovieDetailsForTheatreHall
+)
+router.post(
+  '/theatre-hall/:id/movies/:movieId',
+  theatreHallMovieController.addMovieToTheatreHall
+)
 
 module.exports = router
