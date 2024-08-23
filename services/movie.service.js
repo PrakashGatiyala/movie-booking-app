@@ -12,6 +12,9 @@ class MovieService {
       const movies = await Movie.find()
       return movies
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error
+      }
       console.log(`Error fetching movies`, error)
       throw new AppError('Internal server error', 500)
     }
@@ -30,6 +33,9 @@ class MovieService {
       }
       return movie
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error
+      }
       console.log(`Error fetching movie`, error)
       throw new AppError('Internal server error', 500)
     }
@@ -50,6 +56,9 @@ class MovieService {
       const movie = await Movie.create(safeParsedData.data)
       return movie
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error
+      }
       console.log(`Error creating movie`, error)
       throw new AppError('Internal server error', 500)
     }
@@ -76,6 +85,9 @@ class MovieService {
       }
       return movie
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error
+      }
       console.log(`Error updating movie`, error)
       throw new AppError('Internal server error', 500)
     }
@@ -94,6 +106,9 @@ class MovieService {
       }
       return movie
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error
+      }
       console.log(`Error deleting movie`, error)
       throw new AppError('Internal server error', 500)
     }

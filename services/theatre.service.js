@@ -14,6 +14,9 @@ class TheatreService {
       const theatres = await Theatre.find()
       return theatres
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error
+      }
       console.log(`Error fetching theatres`, error)
       throw new AppError('Internal server error', 500)
     }
@@ -32,6 +35,9 @@ class TheatreService {
       }
       return theatre
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error
+      }
       console.log(`Error fetching theatre`, error)
       throw new AppError('Internal server error', 500)
     }
@@ -54,6 +60,9 @@ class TheatreService {
       const theatre = await Theatre.create(safeParsedData.data)
       return theatre
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error
+      }
       console.log(`Error creating theatre`, error)
       throw new AppError('Internal server error', 500)
     }
@@ -82,6 +91,9 @@ class TheatreService {
       }
       return theatre
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error
+      }
       console.log(`Error updating theatre`, error)
       throw new AppError('Internal server error', 500)
     }
@@ -100,6 +112,9 @@ class TheatreService {
       }
       return theatre
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error
+      }
       console.log(`Error deleting theatre`, error)
       throw new AppError('Internal server error', 500)
     }
