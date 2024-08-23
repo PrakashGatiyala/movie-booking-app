@@ -10,7 +10,7 @@ const theatreHallSchema = new Schema(
     seatingCapacity: {
       type: Number,
       required: true,
-      min: 0,
+      min: 1,
     },
     theatreId: {
       type: Schema.Types.ObjectId,
