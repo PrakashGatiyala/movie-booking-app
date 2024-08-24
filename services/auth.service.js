@@ -25,7 +25,7 @@ class AuthService {
   /**
    * @function verifyToken
    * @param {string} token
-   *  @returns {{ _id: string; role: 'admin', iat: number | 'user' } | boolean} payload
+   *  @returns {{ id: string; role: 'admin', iat: number | 'user' } | boolean} payload
    */
   static verifyToken(token) {
     try {

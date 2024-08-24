@@ -1,5 +1,6 @@
 const AuthService = require('../services/auth.service')
 const AppError = require('../errors/app.error')
+const User = require('../models/user.model')
 const {
   createUserValidator,
   signInValidator,
@@ -55,11 +56,18 @@ const handleUserSignin = async (req, res) => {
   }
 }
 
-const handleMe = (req, res) => {
+const handleMe = async (req, res) => {
   if (!req.user) {
     return res.json({ isLoggedIn: false })
   }
-  return res.json({ isLoggedIn: true, data: { user: req.user } })
+
+  const user = await User.findById(req.user.id).select({
+    firstname: true,
+    lastname: true,
+    email: true,
+    role: true,
+  })
+  return res.json({ isLoggedIn: true, data: { user } })
 }
 
 const handleUserLogout = (req, res) => {
