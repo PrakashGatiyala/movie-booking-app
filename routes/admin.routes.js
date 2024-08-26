@@ -26,7 +26,13 @@ router.post('/movies', movieController.createMovie)
 router.patch('/movies/:id', movieController.updateMovie)
 router.delete('/movies/:id', movieController.deleteMovie)
 
-// Theatre-hall-movie
+// Theatre-hall-movie mapping
+router.get('/shows/movie/:movieId', theatreHallMovieController.getShowsForMovie) // TODO: make this route public
+router.get(
+  '/shows/theatre-hall/:theatreHallId',
+  theatreHallMovieController.getShowsForTheatreHall
+)
+router.post('/shows', theatreHallMovieController.createShow)
 router.get(
   '/theatre-hall/:id/movies/:movieId',
   theatreHallMovieController.getMovieDetailsForTheatreHall
