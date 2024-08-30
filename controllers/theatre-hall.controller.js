@@ -46,4 +46,21 @@ async function createTheatreHall(req, res) {
   }
 }
 
-module.exports = { getAllTheatreHalls, createTheatreHall }
+async function getTheatreHallById(req, res) {
+  try {
+    const theatreHall = await TheatreHallService.getTheatreHallById(
+      req.params.id
+    )
+    res.status(200).json({ status: 'success', data: { theatreHall } })
+  } catch (error) {
+    if (error instanceof AppError) {
+      return res.status(error.code).json({ error: error.message })
+    }
+    console.log(`Error`, error)
+    return res
+      .status(500)
+      .json({ status: 'error', error: 'Internal server error' })
+  }
+}
+
+module.exports = { getAllTheatreHalls, createTheatreHall, getTheatreHallById }

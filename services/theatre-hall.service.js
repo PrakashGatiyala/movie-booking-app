@@ -70,6 +70,30 @@ class TheatreHallService {
       throw new AppError('Internal server error', 500)
     }
   }
+
+  /**
+   * @function getTheatreHallById
+   * @param {string} theatreHallId
+   * @returns { Promise<TheatreHall> } | Theatre hall
+   */
+  static async getTheatreHallById(theatreHallId) {
+    try {
+      const theatreHall = await TheatreHall.findById(theatreHallId)
+      if (!theatreHall) {
+        throw new AppError(
+          `Theatre hall not found with id ${theatreHallId}`,
+          404
+        )
+      }
+      return theatreHall
+    } catch (error) {
+      if (error instanceof AppError) {
+        throw error // Rethrow the original CustomError
+      }
+      console.log(`Error fetching theatre hall`, error)
+      throw new AppError('Internal server error', 500)
+    }
+  }
 }
 
 module.exports = TheatreHallService

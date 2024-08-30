@@ -6,6 +6,8 @@ const {
   createTheatreHallMovieValidator,
   createTheatreHallMovieMappingSchema,
 } = require('../lib/validators/theatre-hall-movie.validator')
+const { path } = require('../app')
+const { populate } = require('../models/user.model')
 
 class TheatreHallMovieService {
   /**
@@ -139,7 +141,14 @@ class TheatreHallMovieService {
       if (!movie) {
         throw new AppError('Movie not found', 404)
       }
-      const shows = await TheatreHallMovieMapping.find({ movieId })
+
+      const shows = await TheatreHallMovieMapping.find({ movieId }).populate({
+        path: 'theatreHallId',
+        populate: {
+          path: 'theatreId',
+        },
+      })
+
       return shows
     } catch (error) {
       if (error instanceof AppError) {
