@@ -16,6 +16,15 @@ const bookingSchema = new Schema(
       type: Number,
       required: true,
     },
+    paymentId: {
+      type: String,
+      required: true,
+    },
+    geteway: {
+      enum: ['RAZORPAY', 'STRIPE'],
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
@@ -23,6 +32,7 @@ const bookingSchema = new Schema(
 )
 
 bookingSchema.index({ showId: 1, seatNumber: 1 }, { unique: true })
+bookingSchema.index({ geteway: 1, paymentId: 1 }, { unique: true })
 
 const Booking = model('booking', bookingSchema)
 

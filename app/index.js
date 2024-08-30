@@ -4,6 +4,8 @@ const cors = require('cors')
 const adminRoutes = require('../routes/admin.routes')
 const authRoutes = require('../routes/auth.routes')
 const userRoutes = require('../routes/user.routes')
+const publicRoutes = require('../routes/public.routes')
+const bookingRoutes = require('../routes/booking.routes')
 const { createAdmin } = require('../services/admin.service')
 const { authenticationMiddleware } = require('../middlewares/auth.middleware')
 
@@ -22,5 +24,7 @@ app.get('/', (req, res) => {
 app.use('/admin', adminRoutes)
 app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
+app.use('/api', publicRoutes)
+app.use('/booking', bookingRoutes)
 
 module.exports = app
