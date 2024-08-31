@@ -1,26 +1,26 @@
 {
-    "name": "movie-booking-app",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
-        "dev": "dotenv -- nodemon index.js"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "cors": "^2.8.5",
-        "crypto": "^1.0.1",
-        "dotenv-cli": "^7.4.2",
-        "express": "^4.19.2",
-        "jsonwebtoken": "^9.0.2",
-        "mongoose": "^8.5.3",
-        "razorpay": "^2.9.4",
-        "zod": "^3.23.8"
-    },
-    "devDependencies": {
-        "nodemon": "^3.1.4"
-    }
+  "name": "movie-booking-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "dotenv -- node index.js",
+    "dev": "dotenv -- nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv-cli": "^7.4.2",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.3",
+    "razorpay": "^2.9.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
 }
